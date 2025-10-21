@@ -1878,12 +1878,31 @@ static const struct maintenance_strategy incremental_strategy = {
 	},
 };
 
+static const struct maintenance_strategy geometric_strategy = {
+	.tasks = {
+		[TASK_COMMIT_GRAPH].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_COMMIT_GRAPH].schedule = SCHEDULE_HOURLY,
+		[TASK_GEOMETRIC_REPACK].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_GEOMETRIC_REPACK].schedule = SCHEDULE_DAILY,
+		[TASK_PACK_REFS].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_PACK_REFS].schedule = SCHEDULE_DAILY,
+		[TASK_RERERE_GC].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_RERERE_GC].schedule = SCHEDULE_WEEKLY,
+		[TASK_REFLOG_EXPIRE].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_REFLOG_EXPIRE].schedule = SCHEDULE_WEEKLY,
+		[TASK_WORKTREE_PRUNE].type = MAINTENANCE_TYPE_SCHEDULED | MAINTENANCE_TYPE_MANUAL,
+		[TASK_WORKTREE_PRUNE].schedule = SCHEDULE_WEEKLY,
+	},
+};
+
 static struct maintenance_strategy parse_maintenance_strategy(const char *name)
 {
 	if (!strcasecmp(name, "incremental"))
 		return incremental_strategy;
 	if (!strcasecmp(name, "gc"))
 		return gc_strategy;
+	if (!strcasecmp(name, "geometric"))
+		return geometric_strategy;
 	die(_("unknown maintenance strategy: '%s'"), name);
 }
 
