@@ -1,0 +1,7 @@
+language = "C"
+
+# Don't include standard C headers. These are managed by "git-compat-util.h".
+no_includes = true
+
+# Use plain structs instead of using typedefs.
+style = "tag"

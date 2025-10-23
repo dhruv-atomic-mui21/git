@@ -63,7 +63,7 @@ test:linux:
       - jobname: linux-musl-meson
         image: alpine:latest
       - jobname: linux32
-        image: i386/ubuntu:20.04
+        image: i386/debian:latest
       - jobname: linux-meson
         image: ubuntu:rolling
         CC: gcc
